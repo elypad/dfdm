@@ -3,7 +3,7 @@ const sgMail = require('@sendgrid/mail');
 var express = require('express')
 var app = express()
 // app.listen(3000)
-// respond with "hello world" when a GET request is made to the homepage
+
 app.get('/', function (req, res) {
   res.send("Direct From Dubai Email Center")
 })
@@ -16,14 +16,14 @@ app.get('/signup/:receiver/:message', function (req, res) {
       to: req.params.receiver,
       from: 'elkanarop@gmail.com',
       subject: 'DFD Test Email',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      // text: 'and easy to do anywhere, even with Node.js',
+      html: `<strong>${req.params.message}</strong>`,
     };
 
    sgMail.send(msg).catch( err=>{
     console.log(error)
-  }).then( res=>{
-    res.send(res)
+  }).then( response=> {
+    return res.send(response)
   })
 })
 
